@@ -19,9 +19,11 @@ export default function RecipeCard({
   return (
     <div>
       <Link href={`/${recipe_id}`}>
-        <Image src={image} alt={title} />
+        <Image src={image} width={300} height={200} alt={title} />
         <h5>{title}</h5>
-        <p>{type}</p>
+        <div>
+          <p>{type}</p>
+        </div>
       </Link>
     </div>
   );

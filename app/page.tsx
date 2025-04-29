@@ -1,10 +1,23 @@
-export default function Home() {
+import { createClient } from "../supabase/server";
+import RecipeCard from "../components/RecipeCardMobile/RecipeCardMobile";
+
+export default async function Home() {
+  const supabase = await createClient();
+
+  const { data: recipes, error } = await supabase.from("recipes").select("*");
+
   return (
     <div className="flex flex-col">
-      <p className="text-4xl font-sans text-purple-700 pt-6 pl-4">
-        Hello from Recipe book. We will learn Next JS, Typescript, Tailwind Css.
-        Check from the local machine.
-      </p>
+      {recipes?.map((recipe) => (
+        <RecipeCard
+          key={recipe.id}
+          recipe_id={recipe.id}
+          title={recipe.title}
+          type={recipe.type}
+          image={recipe.image_url}
+        />
+      ))}
+      {error ? <>{error}</> : null}
     </div>
   );
 }
