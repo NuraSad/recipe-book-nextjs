@@ -4,7 +4,9 @@ import RecipeCard from "../components/RecipeCardMobile/RecipeCardMobile";
 export default async function Home() {
   const supabase = await createClient();
 
-  const { data: recipes, error } = await supabase.from("recipes").select("*");
+  const { data: recipes, error } = await supabase
+    .from("recipes")
+    .select("id, title, type, image_url");
 
   return (
     <div className="flex flex-col">
